@@ -1,0 +1,11 @@
+[package]
+name = "unity-stl"
+version = "0.1.0"
+authors = ["Keijiro Takahashi <keijiro@gmail.com>"]
+
+[lib]
+name = "stlrust"
+crate-type = ["cdylib"]
+
+[dependencies]
+stl_io = "0.6.0"
