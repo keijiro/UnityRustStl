@@ -9,8 +9,6 @@ Desktop.ini
 /Temp
 /UserSettings
 
-/*.stl
-
 /Plugin/*.bundle
 /Plugin/*.lock
 /Plugin/target

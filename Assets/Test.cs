@@ -33,7 +33,7 @@ public sealed class Test : MonoBehaviour
 
     unsafe void Start()
     {
-        var stl = stlrust_open("Test.stl");
+        var stl = stlrust_open(Application.streamingAssetsPath + "/3DBenchy.stl");
 
 #if ENABLE_UNITY_COLLECTIONS_CHECKS
         var handle = AtomicSafetyHandle.Create();
@@ -58,6 +58,7 @@ public sealed class Test : MonoBehaviour
         stlrust_copy_index_array(stl, (IntPtr)indices.GetUnsafePtr(), (uint)icount);
 
         var mesh = new Mesh();
+        mesh.indexFormat = UnityEngine.Rendering.IndexFormat.UInt32;
         mesh.SetVertices(vertices);
         mesh.SetIndices(indices, MeshTopology.Triangles, 0, true);
         mesh.RecalculateNormals();
