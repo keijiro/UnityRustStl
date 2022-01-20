@@ -2,6 +2,7 @@
 name = "unity-stl"
 version = "0.1.0"
 authors = ["Keijiro Takahashi <keijiro@gmail.com>"]
+edition = "2021"
 
 [lib]
 name = "stlrust"

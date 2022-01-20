@@ -1,17 +1,20 @@
 use std::ffi::CStr;
 use std::os::raw::c_char;
 use std::fs::OpenOptions;
+use stl_io::{Vertex, IndexedMesh};
 
-extern crate stl_io;
-use stl_io::{Vertex, IndexedTriangle, IndexedMesh};
+fn open_stl(path: &str) -> std::io::Result<IndexedMesh> {
+    let mut file = OpenOptions::new().read(true).open(path)?;
+    let mut stl = stl_io::create_stl_reader(&mut file)?;
+    stl.as_indexed_triangles()
+}
 
 #[no_mangle]
 pub unsafe extern "C" fn stlrust_open(cpath: *const c_char) -> *mut IndexedMesh {
     let path = CStr::from_ptr(cpath).to_str().unwrap();
-    let mut file = OpenOptions::new().read(true).open(path).unwrap();
-    let mut stl = stl_io::create_stl_reader(&mut file).unwrap();
-    let mesh = stl.as_indexed_triangles().unwrap();
-    Box::into_raw(Box::new(mesh))
+    let res = open_stl(path);
+    if res.is_err() { return std::ptr::null_mut(); }
+    Box::into_raw(Box::new(res.unwrap()))
 }
 
 #[no_mangle]

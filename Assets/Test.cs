@@ -35,6 +35,12 @@ public sealed class Test : MonoBehaviour
     {
         var stl = stlrust_open(Application.streamingAssetsPath + "/3DBenchy.stl");
 
+        if (stl == IntPtr.Zero)
+        {
+            Debug.Log("Load error");
+            return;
+        }
+
 #if ENABLE_UNITY_COLLECTIONS_CHECKS
         var handle = AtomicSafetyHandle.Create();
 #endif
