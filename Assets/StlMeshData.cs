@@ -20,7 +20,7 @@ public sealed class StlMeshData : SafeHandleZeroOrMinusOneIsInvalid
 
     #region Public methods
 
-    public static StlMeshData Create(string path) => stlrust_open(path);
+    public static StlMeshData Open(string path) => stlrust_open(path);
 
     public int VertexCount => (int)stlrust_get_vertex_count(this);
     public int IndexCount => (int)stlrust_get_index_count(this);
