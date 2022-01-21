@@ -4,11 +4,11 @@ using Microsoft.Win32.SafeHandles;
 
 namespace StlRust {
 
-public sealed class PluginHandle : SafeHandleZeroOrMinusOneIsInvalid
+public sealed class StlMeshData : SafeHandleZeroOrMinusOneIsInvalid
 {
     #region SafeHandle implementation
 
-    PluginHandle() : base(true) {}
+    StlMeshData() : base(true) {}
 
     protected override bool ReleaseHandle()
     {
@@ -20,7 +20,7 @@ public sealed class PluginHandle : SafeHandleZeroOrMinusOneIsInvalid
 
     #region Public methods
 
-    public static PluginHandle Create(string path) => stlrust_open(path);
+    public static StlMeshData Create(string path) => stlrust_open(path);
 
     public int VertexCount => (int)stlrust_get_vertex_count(this);
     public int IndexCount => (int)stlrust_get_index_count(this);
@@ -42,22 +42,22 @@ public sealed class PluginHandle : SafeHandleZeroOrMinusOneIsInvalid
     #endif
 
     [DllImport(_dll)] static extern
-      PluginHandle stlrust_open(string path);
+      StlMeshData stlrust_open(string path);
 
     [DllImport(_dll)] static extern
       void stlrust_close(IntPtr ptr);
 
     [DllImport(_dll)] static extern
-      uint stlrust_get_vertex_count(PluginHandle self);
+      uint stlrust_get_vertex_count(StlMeshData self);
 
     [DllImport(_dll)] static extern
-      uint stlrust_get_index_count(PluginHandle self);
+      uint stlrust_get_index_count(StlMeshData self);
 
     [DllImport(_dll)] static extern
-      IntPtr stlrust_get_vertex_pointer(PluginHandle self);
+      IntPtr stlrust_get_vertex_pointer(StlMeshData self);
 
     [DllImport(_dll)] static extern
-      void stlrust_copy_index_array(PluginHandle self, IntPtr buffer, uint size);
+      void stlrust_copy_index_array(StlMeshData self, IntPtr buffer, uint size);
 
     #endregion
 }
